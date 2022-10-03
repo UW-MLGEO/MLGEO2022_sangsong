@@ -1,0 +1,23 @@
+name: mlgeo_sk
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - jupyter
+  - earthpy
+  - folium
+  - geopandas
+  - matplotlib
+  - pymongo
+  - netCDF4
+  - numpy
+  - pandas
+  - pycrs
+  - rasterio
+  - scipy
+  - scikit-learn
+  - shapely
+  - xarray
+  - nbgitpuller
+  - pip=20
+  - obspy
