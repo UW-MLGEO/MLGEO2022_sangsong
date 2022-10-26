@@ -1,9 +1,11 @@
 # ML - SOGOS Overview
 
 Song Sangmin <sangsong@uw.edu> <github: psmsong>
+
 Joyce Cai 
 
 UW Oceanography
+
 Last updated: Oct 26 2022
 
 
@@ -11,11 +13,14 @@ Last updated: Oct 26 2022
 
 [Link to gridded variables](https://uwnetid-my.sharepoint.com/:f:/g/personal/sangsong_uw_edu/Et5YKAWyry5KkSst28_unxsBE3Vc5TCbOGl-3lR4sTvSQQ?email=joycecai%40uw.edu&e=einIE4)
 
-		- Download `gp_659_O2corrected.nc` 	(pressure-gridded 1m, glider #659)
-		- Download `gp_660_O2corrected.nc`	(pressure-gridded 1m, glider #660)
+		- `gp_659_forMLGeo1026.nc` 	(pressure-gridded 1m, glider #659)
+		- `gp_660_forMLGeo1026.nc`	(pressure-gridded 1m, glider #660)
+
+		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
+		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
 
 
-
+- See 
 
 ## Directions 
 
