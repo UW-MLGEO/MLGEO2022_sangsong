@@ -20,17 +20,12 @@ Last updated: Oct 26 2022
 		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
 
 
-- See 
+- I recommend starting by opening sogos_overview.ipynb. 
+Right now the notebook only contains a few things, but we can add more sections as needed. 
 
-## Directions 
+The main notebook starts with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) which have already been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets.
 
-I recommend starting by opening sogos_main.ipynb. 
-Each section in sogos_main.ipynb covers one step of analysis. Often the analysis is described or diagnosed in further detail in a separate notebook entitled `[method]_diagnostics.ipynb`. The main notebook starts with the 'L3' dataset ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom), performs corrections, then predicts variables.
-
- - `sogos_main.ipynb` : Main notebook outlining the analysis process. 
-                        Each step in the analysis is shown, and some steps will reference other notebooks or algorithms. 
-
-Many major functions are stored in modules, which are listed under the Code Directory.
+Many major functions are stored in modules, which are also listed under the Code Directory.
 
 - `sgmod_[purpose].py`: Modules are used to control processing functions required across multiple scripts.
                 sgmod_main              Common glider functions like datetime handling
@@ -39,7 +34,6 @@ Many major functions are stored in modules, which are listed under the Code Dire
                 sgmod_plotting          Used to define common plotting parameters
 
 Two phases of processing were developed externally in MATLAB: 
-
 1. Oxygen optode time response correction (Adapted from Yui Takeshita, MBARI)
 2. ESPER (Courtesy of Brendan Carter [Link to Github])
 
@@ -79,9 +73,9 @@ Two phases of processing were developed externally in MATLAB:
 
 
  ---
- ## SOGOS_Apr19 L2 and L3 reprocessing notes
+ ## SOGOS_Apr19 L2 and L3 reprocessing notes from APL
 
-- owner: gbs2@uw.edu - 2021/09/24
+- owner: Geoff Schilling gbs2@uw.edu - 2021/09/24
 - emailed to me (sangsong@uw.edu 2022/10/21)
 
 ## SG659
