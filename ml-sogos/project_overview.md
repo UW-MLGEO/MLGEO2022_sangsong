@@ -19,8 +19,11 @@ Last updated: Oct 26 2022
 		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
 		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
 
+- Description of data variables in `Seaglider_DataGuide.pdf`
 
-- I recommend starting by opening sogos_overview.ipynb. 
+- First paper from SOGOS program: [Link to Dove (2021)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JC017178)
+
+- I recommend starting to look at the glider data by opening sogos_main.ipynb. 
 Right now the notebook only contains a few things, but we can add more sections as needed. 
 
 The main notebook starts with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) which have already been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets.
