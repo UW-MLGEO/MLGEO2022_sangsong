@@ -23,7 +23,7 @@ Last updated: Oct 26 2022
 
 - First paper from SOGOS program: [Link to Dove (2021)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JC017178)
 
-- I recommend starting to look at the glider data by opening sogos_main.ipynb. 
+- I recommend starting to look at the glider data by opening sogos_overview.ipynb. 
 Right now the notebook only contains a few things, but we can add more sections as needed. 
 
 The main notebook starts with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) which have already been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets.
@@ -35,11 +35,6 @@ Many major functions are stored in modules, which are also listed under the Code
                 sgmod_L3proc            Used for xarray Datset processing of the 'L3' grid
                 sgmod_DFproc            Used for pandas Dataframe processing during analysis
                 sgmod_plotting          Used to define common plotting parameters
-
-Two phases of processing were developed externally in MATLAB: 
-1. Oxygen optode time response correction (Adapted from Yui Takeshita, MBARI)
-2. ESPER (Courtesy of Brendan Carter [Link to Github])
-
 
 ---
 ## Code Directory
@@ -73,6 +68,10 @@ Two phases of processing were developed externally in MATLAB:
                 df_659                          Flattened dataframe for variable operations
     
  
+
+Two phases of processing were developed externally in MATLAB: 
+1. Oxygen optode time response correction (Adapted from Yui Takeshita, MBARI)
+2. ESPER (Courtesy of Brendan Carter [Link to Github])
 
 
  ---
