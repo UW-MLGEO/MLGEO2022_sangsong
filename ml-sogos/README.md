@@ -2,14 +2,14 @@
 
 Song Sangmin <sangsong@uw.edu> <github: psmsong>
 
-Joyce Cai 
+Joyce Cai <joycecai@uw.edu>	<github: JoyceCaiOcean>
 
 UW Oceanography
 
-Last updated: Oct 26 2022
+Last updated: Oct 31 2022
 
 
-## For joyce:
+## For Joyce:
 
 [Link to gridded variables](https://uwnetid-my.sharepoint.com/:f:/g/personal/sangsong_uw_edu/Et5YKAWyry5KkSst28_unxsBE3Vc5TCbOGl-3lR4sTvSQQ?email=joycecai%40uw.edu&e=einIE4)
 
@@ -41,25 +41,20 @@ Many major functions are stored in modules, which are also listed under the Code
 
 **Folders**
 
-- `data/` : float, ship, and glider data as downloaded
-- `gridded-vars/`/ : calculated output variables from analysis
+- `scripts/` : float, ship, and glider data as downloaded
 - `figures/` : useful diagnostic and analysis figures
+
+I recommend making a `data/` folder in your remote copy (on your laptop).
+Large files won't upload to github so you can add the data/ folder to your .gitignore file.
 
 ---
 **Modules**
 
-                sgmod_main as sg                      ytd, profile splitting... 
-                sgmod_L3proc as gproc                 grid Xarray processing - buoyancy, AOU, transform, dav-BFSLE
-                sgmod_DFproc as dfproc                DataFrame processing - season, dav-MLD, T-S binning, ESPER
-                sgmod_plotting as sgplot              plotting functions 
+                sogos_module as sg                      useful common functions + plotting
 
 ---
 **Data/Variable Naming Conventions**
-    
-*Satellite:*    
- 
-                fsle_backwards                  map of daily FSLE snapshots
-                satellite_data                  adt, geo velocities, ssh anomalies 
+
 *Glider:*    
  
                 gp_659                          L3 dataset gridded on pressure
@@ -69,16 +64,15 @@ Many major functions are stored in modules, which are also listed under the Code
     
  
 
-Two phases of processing were developed externally in MATLAB: 
+Two phases of processing were developed externally in MATLAB.
 1. Oxygen optode time response correction (Adapted from Yui Takeshita, MBARI)
 2. ESPER (Courtesy of Brendan Carter [Link to Github])
-
 
  ---
  ## SOGOS_Apr19 L2 and L3 reprocessing notes from APL
 
 - owner: Geoff Schilling gbs2@uw.edu - 2021/09/24
-- emailed to me (sangsong@uw.edu 2022/10/21)
+- documentation emailed to me (sangsong@uw.edu 2022/10/21)
 
 ## SG659
 For SG659, glider .eng files for dives 27 through the end were reconstructed from scicon files for
