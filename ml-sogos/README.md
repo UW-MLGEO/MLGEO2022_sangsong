@@ -19,7 +19,10 @@ Last updated: Oct 31 2022
 		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
 		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
 
-- Description of data variables in `Seaglider_DataGuide.pdf`
+                - 'fsle_backwards.nc'           (1-day FSLE from AVISO)
+                - 'satellite_data.nc'           (ADT product from AVISO)
+
+- Description of glider data variables in `Seaglider_DataGuide.pdf`
 
 - First paper from SOGOS program: [Link to Dove (2021)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JC017178)
 
@@ -35,6 +38,18 @@ Many major functions are stored in modules, which are also listed under the Code
                 sgmod_L3proc            Used for xarray Datset processing of the 'L3' grid
                 sgmod_DFproc            Used for pandas Dataframe processing during analysis
                 sgmod_plotting          Used to define common plotting parameters
+
+
+The other option I'm thinking of sounds more promising, and involves satellite data that could be more interesting to your eddy research also! This is maybe more data clean-up, which could actually be useful as we both get familiar with formatting and manipulation of datasets in python. 
+
+A different clustering method would use AVISO satellite products, which are more commonly used as an eddy metric.
+1. First axis: Calculate SLA above the glider point in space i.e. latitude/longitude. (Download from AVISO)
+    - Possible that SLA will not work well for clustering-- can explain further in person. Has to do with averaging where the product "SLA" = ADT - <long-term ADT> provided by AVISO uses a climatological mean <ADT>, which can interfere with the calculation for transient eddies. 
+    - So a better variable could be a different metric -- SSH contours, or manually calculated SSH anomalies. A manual calculation of local-SSH = ADT - <ADT over 10 days> is more appropriate for high-latitude regions where the sea level is highly variable across time periods. 
+2. Second axis: Some metric of mixing, like MLD or vertical gradient in spice from the glider data at that location. 
+3. Clustering may show points in space that tend to be clustered with a strong vertical gradient and a specific SSH. 
+        - If we want to save on time, we can definitely just do SLA and MLD (easiest to cluster on) as our axes. These wouldn't take long, and if they are bad to cluster on we can conclude that it may not be a good metric for the reasons above. But if the coding seems manageable in time, I would be interested in the other metrics. 
+        - One theoretical motivation could be, is a higher SSH anomaly --> larger gradients? OR, could it be that smaller anomalies relate to spaces "in-between" eddies that seems to produce a lot of stirring.
 
 ---
 ## Code Directory

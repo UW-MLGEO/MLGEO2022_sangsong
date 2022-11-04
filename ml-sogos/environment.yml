@@ -21,4 +21,4 @@ dependencies:
   - haversine
   - pyGAM
   - scikit-learn 
-  - 
+  
