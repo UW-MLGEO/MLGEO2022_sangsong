@@ -173,3 +173,45 @@ def plotx_days(g3, ycoord='depth', vars = ['SA', 'CT'], tag='', save=False, lim=
     return
 
 
+# %% Functions for adding training variables
+
+def Pchip_buoyancy(gp):
+    """
+    SS version of N2 interpolation method from gsw
+    gsw will return a vector of length n-1 from observations
+    Use PChip Interpolator to get back to original obs. depths
+    
+    @param: gp: gridded dataset on pressure
+    @return: gridded dataset with buoyancy added"""
+    
+    profiles = vert_profiles(gp)
+    list = [] # each row appended will be a vertical profile.
+
+    for profile in profiles:
+            Nsquared, mid_pres = gsw.Nsquared(profile["SA"].values, profile["CT"].values, 
+                                                profile["P"].values, profile["lat"].values)
+
+            df = pd.DataFrame.from_dict({"Ns": Nsquared, "mp": mid_pres})
+            df = df.dropna()
+
+            if np.isnan(df.mp).all():
+                nans = np.empty(len(profile['P']))
+                nans[:] = np.NaN
+                list.append(nans)
+            else:
+                f = scipy.interpolate.PchipInterpolator(x=df.mp, y=df.Ns, extrapolate = False)
+
+                vertN2 = f(profile["P"].values)
+
+                surf = np.where(~np.isnan(profile.SA.values))[0][0]
+                bottom = np.where(~np.isnan(profile.SA.values))[0][-1]
+                vertN2[surf] = vertN2[surf+1]
+                vertN2[bottom] = vertN2[bottom-1]
+
+                list.append(vertN2)
+    
+    arr = np.array(list).T
+    gp["buoyancy"] = xr.DataArray(arr, dims = ["depth", "nprof"], 
+                        coords = [gp.depth.values, gp.nprof.values] )
+
+    return gp
