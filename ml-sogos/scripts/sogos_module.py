@@ -10,6 +10,7 @@ from cmocean import cm as cmo
 from datetime import datetime
 import scipy
 import glidertools as gt
+import gsw
 
 # %% Global variables you can import into your notebooks
 
@@ -79,6 +80,79 @@ def vert_profiles(g3):
         vert = g3.sel(nprof=n)   # vertical slice of the grid (profile over depth for one dive)
         profiles.append(vert)
     return profiles
+
+
+def flatten2DF(g3):
+    """
+    Flatten the gridded-pressure (gp) product into a dataframe. 
+    Allows you to calculate MLD and run SOML code to estimate nitrate and pH.
+    @param: g3 - gridded-pressure gp_659 or gp_660
+    """ 
+    GliderData = {
+        # "Serial Number" : [],
+        # "Data Mode": [],
+        # "Depth" : gp_659.depth.values.flatten(), #need to make this match dimensions. 1001 * nprof 
+        "Julian Day" : g3.time.values.flatten(),
+        "Yearday" : g3.days.values.flatten(),
+        "Latitude" : g3.lat.values.flatten(),
+        "Longitude" : g3.lon.values.flatten(),
+        "Pressure" : g3.P.values.flatten(),
+        "CT" : g3.CT.values.flatten(),
+        "SA" : g3.SA.values.flatten(),
+        "Oxygen" : g3.oxygen.values.flatten(),
+        "Spice" : g3.spice.values.flatten(),
+        "N_Squared_v2" : g3.buoyancy.values.flatten()
+    }
+
+    # build repeat arrays before flattening, to match dimensions of DF
+    depths = pd.DataFrame(g3.depth.values)
+    depths_array = pd.concat([depths.T]*len(g3.nprof)).T
+    GliderData["Depth"] = depths_array.values.flatten()
+    
+    profnum = pd.DataFrame(g3.nprof.values)
+    profnum_array = pd.concat([profnum.T]*len(g3.depth)) # no transpose
+    GliderData["Nprof"] = profnum_array.values.flatten()
+
+    divenum = pd.DataFrame(g3.dive.values)
+    divenum_array = pd.concat([divenum.T]*len(g3.depth))  # no transpose
+    GliderData["Dive"] = divenum_array.values.flatten()
+
+    GliderData["Sigma 0"] = gsw.sigma0(g3.SA.values.flatten(), g3.CT.values.flatten())
+
+    DF = pd.DataFrame(GliderData)
+    
+    DF = DF.dropna()
+    DF = DF.sort_values(by=['Nprof', 'Depth'])
+
+    return DF
+
+def dfvar_to_darray(df, var='pH'):
+    """" 
+    Convert the dataframe pH variable back into a DataArray so it can be added to the original
+    gridded product gp_659 and gp_660. 
+    From there, the pH can be interpolated onto the isopycnal gridded gi_659 and gi_660."""
+    
+    list = []
+    nprof = np.arange(0,df.Nprof.values.max()+1,1)   # +1 since the index starts at 0
+    depth = np.arange(0,1001,1)      # change this if you need 
+
+    for i in nprof:
+        profile_df = df[df.Nprof==i]
+
+        depths = profile_df.Depth.values
+        v = profile_df[var].values
+
+        # column required to match dimensions of 1001
+        vert_var = np.empty(1001)
+        vert_var[:] = np.NaN
+        for ind, d in enumerate(depths): # put obs at the right depth
+            vert_var[d] = v[ind]
+        list.append(vert_var)   
+
+    arr = np.array(list).T
+    return xr.DataArray(arr, dims = ["depth", "nprof"], 
+                    coords = [depth, nprof] )
+
 
 # %% Plotting functions
 
@@ -183,7 +257,7 @@ def Pchip_buoyancy(gp):
     
     @param: gp: gridded dataset on pressure
     @return: gridded dataset with buoyancy added"""
-    
+
     profiles = vert_profiles(gp)
     list = [] # each row appended will be a vertical profile.
 
