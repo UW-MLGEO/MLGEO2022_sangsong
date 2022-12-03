@@ -2,22 +2,43 @@
 
 Song Sangmin <sangsong@uw.edu> <github: psmsong>
 
-Joyce Cai <joycecai@uw.edu>	<github: JoyceCaiOcean>
+Joyce Cai <joycecai@uw.edu> <github: JoyceCaiOcean>
 
 UW Oceanography
 
 Last updated: Oct 31 2022
 
+## Steps for Use: 
 
-## For Joyce:
+
+1. Start by opening sogos_data_preparation.ipynb
+
+- This notebook goes through the steps to prepare the ship, float, and glider data into Pandas Dataframes. 
+- Processed dataframes are saved under the folder `gridded-vars/`
+- Original data files are saved under the golder `data/`
+
+- For the gliders, we start with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) which have already been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets.
+
+
+
+2.  Once the processed DataFrames are ready, open sogos_overview.ipynb
+
+- This notebook contains the ML scripts to run three different versions of a Random Forest model
+- RF model is trained on ship/float data, then used for prediction along the glider track.
+
+
+Many major functions are stored in the sogos_module.py module which can be imported.
+
+
+## Data Sources and Links:
 
 [Link to gridded variables](https://uwnetid-my.sharepoint.com/:f:/g/personal/sangsong_uw_edu/Et5YKAWyry5KkSst28_unxsBE3Vc5TCbOGl-3lR4sTvSQQ?email=joycecai%40uw.edu&e=einIE4)
 
-		- `gp_659_forMLGeo1026.nc` 	(pressure-gridded 1m, glider #659)
-		- `gp_660_forMLGeo1026.nc`	(pressure-gridded 1m, glider #660)
+        - `gp_659_forMLGeo1026.nc`  (pressure-gridded 1m, glider #659)
+        - `gp_660_forMLGeo1026.nc`  (pressure-gridded 1m, glider #660)
 
-		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
-		- `gi_659_forMLGeo1026.nc`	(isopycnal-gridded .001, glider #659)
+        - `gi_659_forMLGeo1026.nc`  (isopycnal-gridded .001, glider #659)
+        - `gi_659_forMLGeo1026.nc`  (isopycnal-gridded .001, glider #659)
 
                 - 'fsle_backwards.nc'           (1-day FSLE from AVISO)
                 - 'satellite_data.nc'           (ADT product from AVISO)
@@ -35,55 +56,40 @@ Last updated: Oct 31 2022
 - First paper from SOGOS program: [Link to Dove (2021)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JC017178)
 
 
-- I recommend starting to look at the glider data by opening sogos_overview.ipynb. 
-Right now the notebook only contains a few things, but we can add more sections as needed. 
-
-The main notebook starts with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) which have already been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets.
-
-Many major functions are stored in modules, which are also listed under the Code Directory.
-
-- `sgmod_[purpose].py`: Modules are used to control processing functions required across multiple scripts.
-                sgmod_main              Common glider functions like datetime handling
-                sgmod_L3proc            Used for xarray Datset processing of the 'L3' grid
-                sgmod_DFproc            Used for pandas Dataframe processing during analysis
-                sgmod_plotting          Used to define common plotting parameters
-
-
-
 ---
 ## Code Directory
 
 **Folders**
 
-- `scripts/` : float, ship, and glider data as downloaded
+- `scripts/` : main notebooks and modules
+- `data/` : float, ship, and glider data as downloaded
+- `gridded-vars/` : processed data saved as DataFrames, prepped for ML
 - `figures/` : useful diagnostic and analysis figures
 
-I recommend making a `data/` folder in your remote copy (on your laptop).
+I recommend adding the `data/` folder in your remote copy (on your laptop).
 Large files won't upload to github so you can add the data/ folder to your .gitignore file.
 
----
+
 **Modules**
 
                 sogos_module as sg                      useful common functions + plotting
 
----
-**Data/Variable Naming Conventions**
 
-*Glider:*    
+**Glider Data Notes**
+
+*Naming Conventions:*    
  
                 gp_659                          L3 dataset gridded on pressure
                 gi_659                          L3 dataset gridded on isopycnals
-                dav_659                         L3 dive-averaged metrics, incl. MLD
                 df_659                          Flattened dataframe for variable operations
     
- 
-
 Two phases of processing were developed externally in MATLAB.
 1. Oxygen optode time response correction (Adapted from Yui Takeshita, MBARI)
 2. ESPER (Courtesy of Brendan Carter [Link to Github])
 
  ---
- ## SOGOS_Apr19 L2 and L3 reprocessing notes from APL
+ ## Glider Preprocessing Notes from APL
+ SOGOS_Apr19 L2 and L3 reprocessing notes from APL
 
 - owner: Geoff Schilling gbs2@uw.edu - 2021/09/24
 - documentation emailed to me (sangsong@uw.edu 2022/10/21)
