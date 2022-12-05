@@ -34,7 +34,9 @@ palettes = {'SA': cmo.haline,
         'oxygen': cmo.ice, 
         'oxy_tcorr': cmo.ice, 
         'AOU': cmo.amp, 
-        'pH': cmo.matter_r, 
+        'pH_1': cmo.dense, 
+        'pH_2': cmo.dense,
+        'pH_3': cmo.dense,   # matter_r
         'TA': cmo.tempo}
 
 
@@ -156,7 +158,7 @@ def dfvar_to_darray(df, var='pH'):
 
 # %% Plotting functions
 
-def plot_var(g3_glider, var='SA'):
+def plot_var(g3_glider, var='SA', cm=cmo.dense):
     """"
     Quick plot for single variable, for troubleshooting code.
     @param      gp_glider: gridded dataset
@@ -164,11 +166,12 @@ def plot_var(g3_glider, var='SA'):
     
     fig = plt.figure(figsize=(8,4))
     ax = fig.gca()
-    g3_glider[var].plot(ax=ax, cmap=cmo.dense)
+    g3_glider[var].plot(ax=ax, cmap=cm)
 
     ax.margins(x=0.01)
     ax.invert_yaxis()
     ax.set_xlabel('profile number')
+    return ax
 
 
 def plotx_nprof(g3, vars = ['SA', 'CT'], tag='', save=False, lim=[]):
@@ -177,13 +180,14 @@ def plotx_nprof(g3, vars = ['SA', 'CT'], tag='', save=False, lim=[]):
     @param  g3: Pass either gridded dataset gp_ on pressure, or gi_ on isopycnals.
             vars: Options are ['SA', 'CT', 'oxygen', 'AOU', 'spice']
     """
+    list = [];
     for v in vars:
         fig = plt.figure(figsize=pltsize)
         ax = fig.gca()
 
         if len(lim)==0:
-            min =  lims[v][0]
-            max =  lims[v][1]
+            min =  g3[v].min()
+            max =  g3[v].max()
         else:
             min = lim[0]
             max = lim[1]
@@ -200,7 +204,9 @@ def plotx_nprof(g3, vars = ['SA', 'CT'], tag='', save=False, lim=[]):
         if save:
             plt.savefig('figures/' + pngtitle, format='png')
 
-    return
+        list.append(ax)
+
+    return list
 
 def plotx_days(g3, ycoord='depth', vars = ['SA', 'CT'], tag='', save=False, lim=[]):
     """
