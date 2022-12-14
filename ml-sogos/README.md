@@ -15,19 +15,19 @@ Last updated: Oct 31 2022
 
 - This notebook goes through the steps to prepare the ship, float, and glider data into Pandas Dataframes. 
 - Processed dataframes are saved under the folder `gridded-vars/`
-- Original data files are saved under the golder `data/`
+- Original data files are accessed under the folder `data/`
 
-- For the gliders, we start with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) which have already been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets.
-
+- For the gliders, we start with the 'L3' glider datasets ('level-3' processed dataset from APL, gridded and interpolated. See notes from Jeff Schilling, APL-UW, at bottom) 
+- Glider data have been processed into "gp" (gridded-pressure) and "gi" (gridded-isopycnal) xarray Datasets. 
+- Argo float data and GO-SHIP bottle data are imported from public access databases, described below.
 
 
 2.  Once the processed DataFrames are ready, open sogos_overview.ipynb
 
-- This notebook contains the ML scripts to run three different versions of a Random Forest model
-- RF model is trained on ship/float data, then used for prediction along the glider track.
+- This notebook contains the ML scripts to run four different versions of a Random Forest model. The models are first trained on different sets of features from the ship/float data, then used for pH prediction along the glider track.
 
 
-Many major functions are stored in the sogos_module.py module which can be imported.
+Many major functions are stored in the sogos_module.py module which can be imported into each notebook.
 
 
 ## Data Sources and Links:
@@ -67,7 +67,7 @@ Many major functions are stored in the sogos_module.py module which can be impor
 - `figures/` : useful diagnostic and analysis figures
 
 I recommend adding the `data/` folder in your remote copy (on your laptop).
-Large files won't upload to github so you can add the data/ folder to your .gitignore file.
+Large files won't upload to Github so you can add the data/ folder to your .gitignore file.
 
 
 **Modules**
@@ -83,7 +83,7 @@ Large files won't upload to github so you can add the data/ folder to your .giti
                 gi_659                          L3 dataset gridded on isopycnals
                 df_659                          Flattened dataframe for variable operations
     
-Two phases of processing were developed externally in MATLAB.
+Two post-processing steps were developed externally in MATLAB and modified for gliders:
 1. Oxygen optode time response correction (Adapted from Yui Takeshita, MBARI)
 2. ESPER (Courtesy of Brendan Carter [Link to Github])
 
