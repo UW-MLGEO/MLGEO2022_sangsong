@@ -11,7 +11,7 @@ Last updated: Oct 31 2022
 ## Steps for Use: 
 
 
-1. Start by opening sogos_data_preparation.ipynb
+1. Start by opening `scripts/sogos_data_preparation.ipynb`
 
 - This notebook goes through the steps to prepare the ship, float, and glider data into Pandas Dataframes. 
 - Processed dataframes are saved under the folder `gridded-vars/`
@@ -22,12 +22,12 @@ Last updated: Oct 31 2022
 - Argo float data and GO-SHIP bottle data are imported from public access databases, described below.
 
 
-2.  Once the processed DataFrames are ready, open sogos_overview.ipynb
+2.  Once the processed DataFrames are ready, open `scripts/sogos_overview.ipynb`
 
 - This notebook contains the ML scripts to run four different versions of a Random Forest model. The models are first trained on different sets of features from the ship/float data, then used for pH prediction along the glider track.
 
 
-Many major functions are stored in the sogos_module.py module which can be imported into each notebook.
+Many major functions are stored in the `sogos_module.py` module which can be imported into each notebook.
 
 
 ## Data Sources and Links:
@@ -45,15 +45,13 @@ Many major functions are stored in the sogos_module.py module which can be impor
 
 - [Link to float data](https://uwnetid-my.sharepoint.com/:f:/g/personal/sangsong_uw_edu/Es-ESkVfIlpHhpFq7o5LTaoBtqv6pWj6rntxMyXieLEq8A?e=FeRRjs)
 - [Argo ERDDAP Data Server](http://www.argodatamgt.org/Access-to-data/ERDDAP-data-server)
-            - Processed float files (pd Dataframes) will be up shortly. 
 
 
 - [Link to ship data](https://uwnetid-my.sharepoint.com/:f:/g/personal/sangsong_uw_edu/ErLtPwS6pdZClgo0Flp9lq8Bz73FRmUlhR2zf329gDH-3w?e=hCzidh)
 - [GO-SHIP I6 Cruise Line Bottle Data](https://cchdo.ucsd.edu/)
         
 - Description of glider data variables are in `Seaglider_DataGuide.pdf`
-- Description of Argo float and ship are in Dove (2021)
-- First paper from SOGOS program: [Link to Dove (2021)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JC017178)
+- Description of Argo float and ship are in first paper from SOGOS program: [Link to Dove (2021)]https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2021JC017178)
 
 
 ---
@@ -64,10 +62,10 @@ Many major functions are stored in the sogos_module.py module which can be impor
 - `scripts/` : main notebooks and modules
 - `data/` : float, ship, and glider data as downloaded
 - `gridded-vars/` : processed data saved as DataFrames, prepped for ML
-- `figures/` : useful diagnostic and analysis figures
+<!-- - `figures/` : useful diagnostic and analysis figures -->
 
-I recommend adding the `data/` folder in your remote copy (on your laptop).
-Large files won't upload to Github so you can add the data/ folder to your .gitignore file.
+I recommend adding the `data/` folder in your remote copy.
+Large files won't upload to Github so you can add the `data/` folder to your .gitignore file.
 
 
 **Modules**
